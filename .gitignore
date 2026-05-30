@@ -1,0 +1,11 @@
+# Flet/Flutter build artifacts
+build/
+
+# Python virtual environment
+.venv/
+__pycache__/
+*.pyc
+
+# Distribution
+dist/
+*.egg-info/

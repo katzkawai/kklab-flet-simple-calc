@@ -10,20 +10,20 @@ class CalcButton(ft.Button):
 
 @ft.control
 class DigitButton(CalcButton):
-    bgcolor: ft.Colors = ft.Colors.WHITE_24
-    color: ft.Colors = ft.Colors.WHITE
+    bgcolor: ft.Colors = ft.Colors.WHITE
+    color: ft.Colors = ft.Colors.BLUE_GREY_900
 
 
 @ft.control
 class ActionButton(CalcButton):
-    bgcolor: ft.Colors = ft.Colors.ORANGE
+    bgcolor: ft.Colors = ft.Colors.AMBER_400
     color: ft.Colors = ft.Colors.WHITE
 
 
 @ft.control
 class ExtraActionButton(CalcButton):
-    bgcolor: ft.Colors = ft.Colors.BLUE_GREY_100
-    color: ft.Colors = ft.Colors.BLACK
+    bgcolor: ft.Colors = ft.Colors.CYAN_200
+    color: ft.Colors = ft.Colors.BLUE_GREY_900
 
 
 @ft.control
@@ -31,10 +31,10 @@ class CalculatorApp(ft.Container):
     def init(self):
         self.reset()
         self.width = 350
-        self.bgcolor = ft.Colors.BLACK
+        self.bgcolor = ft.Colors.BLUE_50
         self.border_radius = ft.BorderRadius.all(20)
         self.padding = 20
-        self.result = ft.Text(value="0", color=ft.Colors.WHITE, size=20)
+        self.result = ft.Text(value="0", color=ft.Colors.BLUE_GREY_900, size=20)
 
         self.content = ft.Column(
             controls=[
@@ -162,6 +162,7 @@ class CalculatorApp(ft.Container):
 
 def main(page: ft.Page):
     page.title = "Calc App"
+    page.bgcolor = ft.Colors.WHITE
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
 

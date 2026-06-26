@@ -85,72 +85,37 @@ uv run flet run
 
 ---
 
-### ステップ 1: Web アプリをビルドする
+### 手動で公開する手順（`deploy.sh` の中身）
+
+`deploy.sh` を使わず手動でやる場合も、やることは次の 2 つだけです。
+
+**1. Web アプリとしてビルドする**
 
 ```bash
 uv run flet build web --base-url /kklab-flet-simple-calc/ --exclude .venv build .git
 ```
 
-このコマンドの意味:
+結果は `build/web` フォルダに出力されます。次の 2 つのオプションは必須です。
 
-- `flet build web` … アプリをブラウザで動く形（Web アプリ）に変換します。結果は `build/web` フォルダに入ります。
-- `--base-url /kklab-flet-simple-calc/` … **とても重要！**
-  GitHub Pages では URL が `https://〇〇.github.io/kklab-flet-simple-calc/` のように
-  **リポジトリ名のサブフォルダ**になります。この指定がないと画像や JS の読み込みに失敗して
-  真っ白な画面になります。
-- `--exclude .venv build .git` … **これも重要！**
-  この指定がないと `.venv`（Python 一式）がアプリに同梱され、ファイルが
-  **120MB 以上**になって GitHub にアップロードできません（上限は 100MB）。
-  除外すると 1MB 以下に収まります。
+| オプション | なぜ必要か（付け忘れると…） |
+| --- | --- |
+| `--base-url /kklab-flet-simple-calc/` | GitHub Pages はリポジトリ名のサブフォルダで配信される → 無いと画面が**真っ白**に |
+| `--exclude .venv build .git` | `.venv`（Python 一式）を同梱しない → 無いと **100MB 超**で push できない |
 
----
+**2. `build/web` を `gh-pages` ブランチに公開する**
 
-### ステップ 2: ビルド結果を `gh-pages` ブランチに公開する
+`build/web` の中身で `gh-pages`（履歴を持たない orphan ブランチ）を丸ごと置き換えて force push します。
+具体的なコマンドは **bash / Windows PowerShell / コーディングエージェント** の 3 通りを
+[`TUTORIAL.md` のステップ 5](./TUTORIAL.md) にまとめています（`deploy.sh` もこれと同じことを自動で行います）。
 
-下のコマンドをそのままコピーして実行すれば OK です。
-（`build/web` の中身を `gh-pages` ブランチに丸ごと置き換えて push します）
-
-```bash
-# 1. ビルド結果を一時フォルダにコピー
-rm -rf /tmp/ghp-site && cp -r build/web /tmp/ghp-site
-
-# 2. Jekyll 処理を無効化する目印を置く（Flutter のファイルが消えないように）
-touch /tmp/ghp-site/.nojekyll
-
-# 3. gh-pages 用の作業フォルダを用意
-git worktree remove --force /tmp/ghp 2>/dev/null; rm -rf /tmp/ghp
-git worktree add --detach /tmp/ghp
-cd /tmp/ghp
-git checkout --orphan gh-pages
-
-# 4. 中身を入れ替えてコミット & push
-git rm -rf --quiet . 2>/dev/null
-cp -r /tmp/ghp-site/. .
-git add -A
-git commit -m "Deploy web app to GitHub Pages"
-git push -f origin gh-pages
-
-# 5. 後片付け
-cd -
-git worktree remove --force /tmp/ghp
-git branch -D gh-pages 2>/dev/null
-```
-
-push が終わると、1〜2 分ほどで公開ページが新しい内容に更新されます。
-
----
-
-### ステップ 3: 公開を確認する
-
-ブラウザで下の URL を開いて、電卓が表示されれば成功です 🎉
-
-https://katzkawai.github.io/kklab-flet-simple-calc/
+公開後、1〜2 分ほどで [公開ページ](https://katzkawai.github.io/kklab-flet-simple-calc/) に反映されます
+（反映されないときは強制リロード `Ctrl+Shift+R`）。
 
 ---
 
 ## ⚙️ 初回だけ必要な設定（すでに設定済み）
 
-> 一度設定すれば、次回からはステップ 1〜2 を繰り返すだけです。
+> 一度設定すれば、次回からは `./deploy.sh`（または上の手動手順）を繰り返すだけです。
 
 GitHub のリポジトリ設定で、Pages の配信元を `gh-pages` ブランチに指定しています。
 

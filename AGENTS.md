@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This is a small Flet calculator app. The application source lives in `main.py`, including custom button controls and calculator state logic. Project metadata and dependencies are in `pyproject.toml`; locked versions are in `uv.lock`. `README.md` documents local usage and GitHub Pages deployment, while `TUTORIAL.md` contains tutorial notes. Generated output belongs in `build/`, and virtual environments belong in `.venv/`; neither should be committed.
+This is a small Flet calculator app. The application source lives in `main.py`, including custom button controls and calculator state logic. Project metadata and dependencies are in `pyproject.toml`; locked versions are in `uv.lock`. `README.md` documents local usage and GitHub Pages deployment, `TUTORIAL.md` is the full modify-and-deploy walkthrough, and `deploy.sh` builds the web app and publishes it to the `gh-pages` branch. Generated output belongs in `build/`, and virtual environments belong in `.venv/`; neither should be committed.
 
 ## Build, Test, and Development Commands
 
@@ -25,7 +25,7 @@ Recent commits use short, imperative, sentence-case messages such as `Brighten c
 
 ## Deployment & Configuration Notes
 
-GitHub Pages depends on the repository-specific base URL `/kklab-flet-simple-calc/`. If the repository name changes, update both `deploy.sh` and README deployment examples. Do not include `.venv`, `.git`, or previous `build` output in web builds.
+GitHub Pages depends on the repository-specific base URL `/kklab-flet-simple-calc/`. If the repository name changes, update it in `deploy.sh` (the `REPO_NAME` variable) and in the deployment examples in both `README.md` and `TUTORIAL.md`. Do not include `.venv`, `.git`, or previous `build` output in web builds.
 
 ## Agent-Specific Instructions
 

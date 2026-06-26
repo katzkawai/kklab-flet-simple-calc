@@ -60,6 +60,11 @@ uv run flet run
 > このリポジトリには手順や規約をまとめた [`AGENTS.md`](./AGENTS.md) があり、エージェントはそれを読んで作業します。
 > 詳しくは [`TUTORIAL.md`](./TUTORIAL.md) を参照してください。
 
+> 💻 **Windows（PowerShell）の人へ**
+> `deploy.sh` や下の手動コマンド（`cp`・`touch` など）は **macOS / Linux のシェル向け** で、
+> **PowerShell ではそのままでは動きません**。Windows では、上の「コマンドを覚えたくない人へ」（コーディングエージェント）に任せるか、
+> **Git Bash / WSL** で実行するのが簡単です。PowerShell 用に読み替えたコマンドは [`TUTORIAL.md`](./TUTORIAL.md) に載せています。
+
 ### 全体像
 
 ```
